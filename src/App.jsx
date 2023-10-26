@@ -1,4 +1,6 @@
 import Nav_Bar from './Components/Nav_Bar/Nav_Bar'
+import Cards from "./Components/Cards/cards"
+
 function App() {
 
 
@@ -6,6 +8,7 @@ function App() {
   <>
 
 <Nav_Bar/>
+<Cards/>
 
   </>
   )
