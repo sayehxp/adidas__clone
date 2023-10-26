@@ -1,8 +1,17 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Adidas clone
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+   ***this repo is just created for verison control lecture***
+
+` ~~ FrontEnd Qena Team 2 ~~`
+
+
+## __Participants Names__
+
+#### __1__ - Ahmed Mohamed Ahmed Khalil Elsayeh
+#### __2__ - Eslam Mohamed Ebrahim Zaki
+#### __3__ - Abdallah Hussien Abdelazim
+#### __4__ - Abdallah Marzouk Gad Elrab Ahmed
+
