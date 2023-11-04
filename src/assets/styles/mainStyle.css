@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+/* 
+
+
+@media (min-width: 576px) {
+}
+
+
+@media (min-width: 768px) {
+    * {
+        background-color: rgb(0, 234, 255);
+    }
+}
+
+
+@media (min-width: 992px) {
+    * {
+        background-color: yellow;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    * {
+        background-color: rgb(152, 255, 157);
+    }
+}
+
+
+@media (min-width: 1400px) {
+
+} */
