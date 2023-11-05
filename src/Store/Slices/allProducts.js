@@ -4,19 +4,28 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../assets/Firebase/Firebase';
 
 export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
-    
-    const res = await getDocs(collection(db, `products`))
     let prdArr  = [];
-    const prdNames = new Set();
+    const prdNames = [];
+    let prdIndex = {}
+    const  res = await getDocs(collection(db, `products`))
+
 
     const handlePrd = (doc)=>{
 
-        const obj = { ...doc.data(), id: doc.id , similars : []};
-        if(prdNames.has(obj.name)){
-             prdArr[prdArr.length - 1].similars.push(obj.imgurl[0]);
+        const prd = { ...doc.data(), id: doc.id , similars : []};
+
+
+        if(prdNames.includes(prd.name)){
+
+         
+             let x = prdIndex[prd.name];
+             prdArr[x].similars.push(prd.imgurl[0]);
+
+
         }else{
-            prdArr.push(obj);
-            prdNames.add(obj.name)
+            prdArr.push(prd);
+            prdIndex[prd.name] = prdArr.length - 1
+            prdNames.push(prd.name)
         }
         
         
@@ -25,9 +34,9 @@ export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
 
 
     res.docs.forEach(doc => handlePrd(doc))
-// console.log(prdNames)
-// console.log(prdArr)
 
+    // console.log(prdArr)
+    // console.log(prdIndex)
     return prdArr
 
     

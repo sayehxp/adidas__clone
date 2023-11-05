@@ -1,27 +1,35 @@
 import React, { useState } from 'react'
 import './ProductCard.css'
-import Slickslide from '../../Components/Slickslide/Slickslide';
+import Slickslide from '../Slickslide/Slickslide';
 const ProductCard = ({ imgUrl, name, currPrice, prevPrice, pctDiscount , similars }) => {
 const [ximg ,  setXimg] = useState('')
-
+const [hoverON ,  setHoverON] = useState(false)
   const currency = new Intl.NumberFormat('en-US', {
     style: 'currency', currency: 'EGP'
   });
-const ss = ()=>
-{
- 
+const showSecondImg = ()=> {
+  setXimg(imgUrl[4]);
+  setHoverON(true)
 }
-
+const hideSecondImg = ()=> {
+  setXimg('');
+  setHoverON(false)
+}
 
   return (
     
-    <figure className='prd-card' onMouseEnter={ss}>
+    <figure 
+    className= {hoverON ? 'prd-card card-border' : 'prd-card'} 
+    onMouseEnter={showSecondImg} 
+    onMouseLeave={hideSecondImg}
+    >
 
-      <picture>
+    
+    <picture>
         
         <div className="prd-img">
-          <a href="" className='img-lnk'>
-            <img src={ximg || imgUrl} className='w-100' />
+          <a href= {`details/${name}`} className='img-lnk'>
+            <img src={ximg || imgUrl[0]} className='w-100' />
           </a>
         </div>
       
@@ -30,7 +38,7 @@ const ss = ()=>
           <span>{pctDiscount}</span>
         </div>
 
-        <div className="d-flex slick-slide-container">
+        <div className = {hoverON ? 'd-flex slick-slide-container' : 'd-none slick-slide-container'}>
           
           {similars && similars.map(s => <Slickslide imgurl={s} setXimg = {setXimg}/>)}
 

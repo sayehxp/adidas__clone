@@ -26,15 +26,20 @@ export default function MainCategory() {
 
 <div className='main'>
 
-<h2> <i>MainCategory</i>    {catName} </h2>
+<h2> <i>MainCategory</i>{catName}</h2>
+
 <div className="row prd-row">
 
 
 {allProducts && allProducts.map(prd => 
 <div className="col-12 col-sm-4 col-md-3 p-0 prd-container">
-<ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={prd.imgurl[0]} similars = {prd.similars}/>
+<ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={prd.imgurl} similars = {prd.similars}
+
+/>
 </div>
-  )}
+)}
+
+
 </div>
 
 </div>

@@ -29,8 +29,10 @@ export default function Home() {
   const dispatch = useDispatch()
   
   useEffect(() => {
+
     handleGetDoc("what's new").then(data => setWhatsNew(data));
     handleGetDoc("what's most sold").then(data => setWhatMostSold(data));
+
     dispatch(GETallProducts()) 
 
   
@@ -173,7 +175,7 @@ const pagination = {
       
     {whatsNew.map(prd =>
       <SwiperSlide>
-        <ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={prd.imgurl[0]} />
+        <ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={[prd.imgurl[0]]} />
       </SwiperSlide>)}
 
 
@@ -181,6 +183,8 @@ const pagination = {
 
 
     </div>}
+
+    
     {whatMostSold.length > 0 && <div className="experience-component product-list my-5">
 
     <button className="swiper2-btn-next swiper-btn-next" />
@@ -192,7 +196,7 @@ const pagination = {
     <Swiper className='swiper swiper2'spaceBetween={10} navigation={handleSwiperNav(2)} pagination={pagination} breakpoints={swiperBreakPoints2}>
       {whatMostSold.map(prd =>
         <SwiperSlide>
-          <ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={prd.imgurl[0]} />
+          <ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={[prd.imgurl[0]]} />
         </SwiperSlide>
       )}
     </Swiper>

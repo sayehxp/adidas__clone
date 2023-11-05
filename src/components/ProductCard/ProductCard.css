@@ -7,6 +7,7 @@
     font-family: adihausDin;
     text-align: end;
     font-size: 14px;
+    margin-right: 8px;
 }
 
 .prd-name a {
@@ -39,4 +40,8 @@
         background-color: white;
     }
 
+}
+
+.card-border{
+    border: 1px solid rgb(15, 15, 18);
 }

@@ -1,7 +1,20 @@
+.main{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
 .prd-card {
   width: 99%;
 
 }
+
+.prd-row{
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
 
 .main .prd-body {
 
@@ -29,9 +42,7 @@
 
 }
 
-.prd-row {
-  justify-content: center;
-}
+
 
 
 
@@ -45,10 +56,17 @@
 
 
 @media (min-width: 992px) {
+
+ 
+
+
+  .prd-row{
+    width: 95%;
+  }
   .main .prd-container {
 
-    width: 24%;
-
+    width: 25%;
+    
   }
 
 
@@ -61,9 +79,12 @@
 
 @media (min-width: 1200px) {
 
+  .prd-row{
+    width: 90%;
+  }
   .main .prd-container {
-
-    width: 22%;
+    
+    width: 25%;
 
   }
 
