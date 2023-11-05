@@ -6,15 +6,15 @@ import { GETallProducts } from "../../Store/Slices/allProducts";
 import './MainCategory.css'
 export default function MainCategory() {
 
-  const {catName} = useParams();
-  const allProducts = useSelector((state)=> state.allProducts.allProducts)
+  const { catName } = useParams();
+  const allProducts = useSelector((state) => state.allProducts.allProducts)
   const dispatch = useDispatch()
 
   useEffect(() => {
- 
-    dispatch(GETallProducts()) 
 
-  
+    dispatch(GETallProducts())
+
+
   }, [])
 
 
@@ -24,27 +24,28 @@ export default function MainCategory() {
   return (
 
 
-<div className='main'>
+    <div className='main'>
 
-<h2> <i>MainCategory</i>{catName}</h2>
+      <h2> <i>MainCategory</i>{catName}</h2>
 
-<div className="row prd-row">
-
-
-{allProducts && allProducts.map(prd => 
-<div className="col-12 col-sm-4 col-md-3 p-0 prd-container">
-<ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={prd.imgurl} similars = {prd.similars}
-
-/>
-</div>
-)}
+      <div className="row prd-row">
 
 
-</div>
+        {allProducts && allProducts.map(prd =>
 
-</div>
+          <div className="col-12 col-sm-4 col-md-3 p-0 prd-container" key={prd.id}>
 
-     
-  
+            <ProductCard prd={prd} />
+          </div>
+
+        )}
+
+
+      </div>
+
+    </div>
+
+
+
   )
 }

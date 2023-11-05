@@ -17,9 +17,8 @@ export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
 
         if(prdNames.includes(prd.name)){
 
-         
              let x = prdIndex[prd.name];
-             prdArr[x].similars.push(prd.imgurl[0]);
+             prdArr[x].similars.push({img: prd.imgurl[0] , id : prd.id});
 
 
         }else{

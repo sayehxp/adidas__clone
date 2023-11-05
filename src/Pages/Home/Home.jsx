@@ -175,7 +175,7 @@ const pagination = {
       
     {whatsNew.map(prd =>
       <SwiperSlide>
-        <ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={[prd.imgurl[0]]} />
+        <ProductCard prd={prd}/>
       </SwiperSlide>)}
 
 
@@ -196,7 +196,7 @@ const pagination = {
     <Swiper className='swiper swiper2'spaceBetween={10} navigation={handleSwiperNav(2)} pagination={pagination} breakpoints={swiperBreakPoints2}>
       {whatMostSold.map(prd =>
         <SwiperSlide>
-          <ProductCard pctDiscount={"-25%"} name={prd.name} prevPrice={prd.oldprice} currPrice={prd.price} imgUrl={[prd.imgurl[0]]} />
+          <ProductCard prd={prd}/>
         </SwiperSlide>
       )}
     </Swiper>

@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
 import './ProductCard.css'
 import Slickslide from '../Slickslide/Slickslide';
-const ProductCard = ({ imgUrl, name, currPrice, prevPrice, pctDiscount , similars }) => {
+import { v4 as uuidv4 } from 'uuid';
+
+const ProductCard = ({prd}) => {
 const [ximg ,  setXimg] = useState('')
-const [hoverON ,  setHoverON] = useState(false)
-  const currency = new Intl.NumberFormat('en-US', {
-    style: 'currency', currency: 'EGP'
-  });
+const [hoverON ,  setHoverON] = useState(false) 
+const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'EGP'});
+
 const showSecondImg = ()=> {
-  setXimg(imgUrl[4]);
+  setXimg(prd.imgurl[4]);
   setHoverON(true)
 }
 const hideSecondImg = ()=> {
   setXimg('');
   setHoverON(false)
 }
+
 
   return (
     
@@ -28,19 +30,24 @@ const hideSecondImg = ()=> {
     <picture>
         
         <div className="prd-img">
-          <a href= {`details/${name}`} className='img-lnk'>
-            <img src={ximg || imgUrl[0]} className='w-100' />
+          <a href= {`details/${prd.id}`} className='img-lnk'>
+            <img src={ximg || prd.imgurl[0]} className='w-100' />
           </a>
         </div>
       
       
         <div className="pct-discount text-end">
-          <span>{pctDiscount}</span>
+          <span>-25%</span>
         </div>
 
         <div className = {hoverON ? 'd-flex slick-slide-container' : 'd-none slick-slide-container'}>
           
-          {similars && similars.map(s => <Slickslide imgurl={s} setXimg = {setXimg}/>)}
+          {prd.similars && prd.similars.map(({img , id}) => 
+          <Slickslide 
+          imgurl = {img}
+          id = {id}
+          setXimg = {setXimg} 
+          key={uuidv4()}/>)}
 
         </div>
 
@@ -50,13 +57,13 @@ const hideSecondImg = ()=> {
 
       <figcaption className="prd-body">
         <div className="prd-name">
-          <a href="">{name}</a>
+          <a href="">{prd.name}</a>
         </div>
         <div className="prd-price">
             <del className='prev-price'>
-              <span content={prevPrice}>{currency.format(prevPrice)}</span>
+              <span content={prd.oldprice}>{currency.format(prd.oldprice)}</span>
             </del>
-            <span class="curr-price" content={currPrice}>{currency.format(currPrice)}</span>
+            <span class="curr-price" content={prd.price}>{currency.format(prd.price)}</span>
         </div>
       </figcaption>
 

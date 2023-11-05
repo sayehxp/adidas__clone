@@ -7,7 +7,7 @@ const ProductDetails = () => {
   const {id} = useParams();
 
   return (
-    <div>ProductDetails {id}</div>
+    <div> {id}</div>
   )
 }
 
