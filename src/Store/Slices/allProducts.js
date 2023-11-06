@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs , getDoc } from "firebase/firestore";
 import { db } from '../../assets/Firebase/Firebase';
 
 export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
@@ -8,6 +8,12 @@ export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
     const prdNames = [];
     let prdIndex = {}
     const  res = await getDocs(collection(db, `products`))
+
+    const docRef = doc(db, "products", "0TfJKFyOmh58zrKmC7Lp");
+
+    const docSnap = await getDoc(docRef);
+    
+
 
 
     const handlePrd = (doc)=>{
@@ -34,10 +40,10 @@ export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
 
     res.docs.forEach(doc => handlePrd(doc))
 
+    return prdArr
+    
     // console.log(prdArr)
     // console.log(prdIndex)
-    return prdArr
-
     
 })
 
