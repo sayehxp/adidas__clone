@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Header.css'
 import './HeaderRwd.css'
 import EgFlag from '../../assets/icons/EgFlag.png';
 import HeaderPromotion from '../HeaderPromotion/HeaderPromotion';
+import { Value } from 'sass';
 
 function Header() {
+
+ const [value,setvalue] =useState("")
+
+
+ useEffect(()=>{
+const welcom =localStorage.getItem("name")
+setvalue(welcom)
+
+ },[])
 
   return (
 
@@ -20,15 +30,15 @@ function Header() {
 
         <Nav id='navTop' className="w-100 d-none d-lg-flex m-0" >
           <img src={EgFlag} width={20} height={15} className='my-auto mx-3  ' />
-          <Nav.Link href='/login'>سجل الدخول</Nav.Link>
+
+          {value?<p> toz {value}</p>:          
+          <Nav.Link href='/login'>سجل الدخول</Nav.Link> }
           <Nav.Link >المرتجعات</Nav.Link>
           <Nav.Link >adiclub</Nav.Link>
           <Nav.Link >منتبع الطلب</Nav.Link>
           <Nav.Link >مساعدة</Nav.Link>
           <Nav.Link > Egypt موقع اديداس الرسمى</Nav.Link>
         </Nav>
-
-
 
         <Nav id='navBottom' className='flex-row-reverse w-100 m-0 p-0'>
 
