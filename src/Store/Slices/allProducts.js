@@ -4,22 +4,27 @@ import { collection, getDocs , getDoc , doc } from "firebase/firestore";
 import { db } from '../../assets/Firebase/Firebase';
 
 export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
+   
     let prdArr  = [];
     const prdNames = [];
     let prdIndex = {};
     const  res = await getDocs(collection(db, `products`))
 
-   
+    console.log('connect db')
 
     const handlePrd = (doc)=>{
-
-        const prd = { ...doc.data(), id: doc.id , similars : []};
-
+        
+        const prd = { 
+            ...doc.data(), id: doc.id ,
+            similars : [ { ...doc.data(), id: doc.id }],
+            dx : prdArr.length
+            };
+        
 
         if(prdNames.includes(prd.name)){
 
-             let x = prdIndex[prd.name];
-             prdArr[x].similars.push({img: prd.imgurl[0] , id : prd.id});
+            let x = prdIndex[prd.name];
+            prdArr[x].similars.push(prd);
 
 
         }else{

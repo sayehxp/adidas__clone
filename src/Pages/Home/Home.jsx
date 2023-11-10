@@ -11,6 +11,10 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../assets/Firebase/Firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { GETallProducts } from "../../Store/Slices/allProducts";
+import WishListAlert from '../../Components/WishListAlert/WishListAlert';
+
+
+
 
 export default function Home() {
 
@@ -87,7 +91,7 @@ const swiperBreakPoints2 = {
 const pagination = {
     clickable: true,
     renderBullet: function (index, className) {
-      return `<span class="${className}"></span>`;
+      return `<span className="${className}"></span>`;
     },
 };
 
@@ -97,37 +101,42 @@ const pagination = {
   return (
     <div className='Home' role='main'>
 
+    <WishListAlert/>
 
-      <div className="homepage-cover">
-        <img
-          className='w-100'
-          src='https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/default/dwb583eabd/MENA_Local_Activations/em-emc-Ultraboost-running-fw23-launch-hp-mh-d-new.gif'>
-        </img>
+    <div className="homepage-cover">
+      <img
+        className='w-100'
+        src='https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/default/dwb583eabd/MENA_Local_Activations/em-emc-Ultraboost-running-fw23-launch-hp-mh-d-new.gif'>
+      </img>
 
-        <div className="homepage-cover-text text-light">
-          <p>حذاء من عندنا</p>
-          <p>أوريجينالز من عندكم</p>
-          <button className='btn-adidas-light'>
-          <i class="arrow-front"></i>
-                <i class="arrow-back"></i>
-            استعراض التشكيلة
-            </button>
-        </div>
+      <div className="homepage-cover-text text-light">
+        <p>حذاء من عندنا</p>
+        <p>أوريجينالز من عندكم</p>
+
+        <button className='btn-adidas-light'>
+        <i className="arrow-front"></i>
+              <i className="arrow-back"></i>
+          استعراض التشكيلة
+          </button>
 
 
       </div>
 
 
-      <div className="experience-component my-5 text-center">
-        <h2 className='title'>الاكثر رواجاً</h2>
-        <div className="experience-region my-5">
-          <div className="box py-2">stan smith</div>
-          <div className="box py-2">superstar</div>
-          <div className="box py-2">gazelle</div>
-          <div className="box py-2">samba</div>
-          <div className="box py-2">part sale</div>
-        </div>
+
+    </div>
+
+
+    <div className="experience-component my-5 text-center">
+      <h2 className='title'>الاكثر رواجاً</h2>
+      <div className="experience-region my-5">
+        <div className="box py-2">stan smith</div>
+        <div className="box py-2">superstar</div>
+        <div className="box py-2">gazelle</div>
+        <div className="box py-2">samba</div>
+        <div className="box py-2">part sale</div>
       </div>
+    </div>
 
 
 

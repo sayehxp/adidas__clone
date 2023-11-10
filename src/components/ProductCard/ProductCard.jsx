@@ -1,21 +1,31 @@
 import React, { useState } from 'react'
-import './ProductCard.css'
 import Slickslide from '../Slickslide/Slickslide';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+import './ProductCard.css';
+
+
+
+
 
 const ProductCard = ({prd}) => {
-const [ximg ,  setXimg] = useState('')
-const [hoverON ,  setHoverON] = useState(false) 
-const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'EGP'});
 
-const showSecondImg = ()=> {
-  setXimg(prd.imgurl[4]);
-  setHoverON(true)
-}
-const hideSecondImg = ()=> {
-  setXimg('');
-  setHoverON(false)
-}
+  const [ximg ,  setXimg] = useState('')
+  const [hoverON ,  setHoverON] = useState(false) 
+  const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'EGP'});
+  let navigate = useNavigate();
+
+
+  const showSecondImg = ()=> {
+    setXimg(prd.imgurl[4]);
+    setHoverON(true)
+  }
+  const hideSecondImg = ()=> {
+    setXimg('');
+    setHoverON(false);
+  }
+
+
 
 
   return (
@@ -23,33 +33,40 @@ const hideSecondImg = ()=> {
     <figure 
     className= {hoverON ? 'prd-card card-border' : 'prd-card'} 
     onMouseEnter={showSecondImg} 
-    onMouseLeave={hideSecondImg}
-    >
+    onMouseLeave={hideSecondImg}>
 
     
     <picture>
         
         <div className="prd-img">
-          <a href= {`details/${prd.id}`} className='img-lnk'>
+          <a onClick={()=> navigate(`/details/${prd.name.slice(0,10)}`, { state: prd })}
+             className='img-lnk'>
             <img src={ximg || prd.imgurl[0]} className='w-100' />
           </a>
         </div>
       
-      
+        <img  style={{width:50 ,height:20}}  src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/ar_EG/v1697860680345/images/wishlist.svg" title="wishlist" /> 
         <div className="pct-discount text-end">
           <span>-25%</span>
         </div>
 
-        <div className = {hoverON ? 'd-flex slick-slide-container' : 'd-none slick-slide-container'}>
+
+
+
+
+        
+        <div className = {`slick-slide-container ${hoverON ? 'd-flex flex-row-reverse justify-content-start' : 'd-none'} `}>
           
-          {prd.similars && prd.similars.map(({img , id}) => 
-          <Slickslide 
-          imgurl = {img}
-          id = {id}
-          setXimg = {setXimg} 
-          key={uuidv4()}/>)}
+          {prd.similars && prd.similars.map( similarPrd => 
+            
+             <Slickslide similarPrd = {similarPrd} setXimg = {setXimg} key={uuidv4()}/>
+          
+          )}
 
         </div>
+
+
+
 
       </picture>
 
@@ -63,7 +80,7 @@ const hideSecondImg = ()=> {
             <del className='prev-price'>
               <span content={prd.oldprice}>{currency.format(prd.oldprice)}</span>
             </del>
-            <span class="curr-price" content={prd.price}>{currency.format(prd.price)}</span>
+            <span className="curr-price" content={prd.price}>{currency.format(prd.price)}</span>
         </div>
       </figcaption>
 

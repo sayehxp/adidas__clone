@@ -4,20 +4,24 @@ import ProductCard from '../../Components/ProductCard/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { GETallProducts } from "../../Store/Slices/allProducts";
 import './MainCategory.css'
+
 export default function MainCategory() {
 
   const { catName } = useParams();
   const allProducts = useSelector((state) => state.allProducts.allProducts)
   const dispatch = useDispatch()
 
+
   useEffect(() => {
 
     dispatch(GETallProducts())
-
+    
 
   }, [])
 
-
+// useEffect(()=>{
+// console.log(allProducts)
+// },[allProducts])
 
 
 
@@ -26,7 +30,7 @@ export default function MainCategory() {
 
     <div className='main'>
 
-      <h2> <i>MainCategory</i>{catName}</h2>
+      <h2> <i>MainCategory </i>{catName}</h2>
 
       <div className="row prd-row">
 

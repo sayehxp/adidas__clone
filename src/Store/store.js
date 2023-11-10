@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import  allProductsReducr  from "./Slices/allProducts";
+import  wishlistReducr  from "./Slices/wishlist";
 
 
 const store = configureStore(
     {
         reducer:{
-            allProducts : allProductsReducr
+            allProducts : allProductsReducr,
+            wishlist : wishlistReducr
         }
     }
 )

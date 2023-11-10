@@ -40,10 +40,16 @@
 
 .btn-adidas-dark {
     background-color: black;
+    border: 1px solid black;
     color: white;
 
     .arrow-front {
+        display: block;
+    }
+
+    .arrow-back {
         display: none;
+     
     }
 }
 
