@@ -1,17 +1,16 @@
 
-import './Home.css'
-import './AdidasBtn.css'
-import './HomeRWD.css'
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import ProductCard from '../../Components/ProductCard/ProductCard'
-import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { collection, getDocs } from "firebase/firestore";
-import { db } from '../../assets/Firebase/Firebase';
-import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from '../../Components/ProductCard/ProductCard';
 import { GETallProducts } from "../../Store/Slices/allProducts";
-import WishListAlert from '../../Components/WishListAlert/WishListAlert';
+import { db } from '../../assets/Firebase/Firebase';
+import './AdidasBtn.css';
+import './Home.css';
+import './HomeRWD.css';
 
 
 
@@ -20,7 +19,7 @@ export default function Home() {
 
   const [whatsNew, setWhatsNew] = useState([])
   const [whatMostSold, setWhatMostSold] = useState([])
-
+  const [fav ,  setFav] = useState([]);
 
   async function handleGetDoc(coll) {
     const res = await getDocs(collection(db, coll))
@@ -28,7 +27,7 @@ export default function Home() {
 
   }
 
-  
+
   const allProducts = useSelector((state)=> state.allProducts.allProducts)
   const dispatch = useDispatch()
   
@@ -101,7 +100,8 @@ const pagination = {
   return (
     <div className='Home' role='main'>
 
-    <WishListAlert/>
+
+
 
     <div className="homepage-cover">
       <img

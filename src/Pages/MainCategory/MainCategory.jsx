@@ -38,7 +38,6 @@ export default function MainCategory() {
         {allProducts && allProducts.map(prd =>
 
           <div className="col-12 col-sm-4 col-md-3 p-0 prd-container" key={prd.id}>
-
             <ProductCard prd={prd} />
           </div>
 

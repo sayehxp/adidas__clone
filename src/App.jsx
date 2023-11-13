@@ -50,7 +50,8 @@ return (
 <Route path="/:catName" element= {<MainCategory/>}/>
 <Route path="/NotFound" element= {<NotFound/>}/>
 <Route path="/Offers" element= {<Offers/>}/>
-<Route path="/details/:id" element= {<ProductDetails/>}/>
+<Route path="/details/:id/:sim?" element= {<ProductDetails/>}/>
+
 <Route path="/Profile" element= {<Profile/>}/>
 <Route path="/Register" element= {<Register/>}/>
 <Route path="/:catName/:sub" element= {<SubCategory/>}/>

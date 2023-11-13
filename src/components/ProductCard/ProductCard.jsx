@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Slickslide from '../Slickslide/Slickslide';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import Slickslide from '../Slickslide/Slickslide';
 import './ProductCard.css';
 
 
@@ -13,7 +13,7 @@ const ProductCard = ({prd}) => {
   const [ximg ,  setXimg] = useState('')
   const [hoverON ,  setHoverON] = useState(false) 
   const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'EGP'});
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const showSecondImg = ()=> {
@@ -39,7 +39,8 @@ const ProductCard = ({prd}) => {
     <picture>
         
         <div className="prd-img">
-          <a onClick={()=> navigate(`/details/${prd.name.slice(0,10)}`, { state: prd })}
+          
+          <a onClick={()=> navigate(`/details/${prd.index}`)}
              className='img-lnk'>
             <img src={ximg || prd.imgurl[0]} className='w-100' />
           </a>
@@ -54,12 +55,15 @@ const ProductCard = ({prd}) => {
 
 
 
-        
+        {/* ____________________________________________Slickslide ___________________________________________________*/}
+
         <div className = {`slick-slide-container ${hoverON ? 'd-flex flex-row-reverse justify-content-start' : 'd-none'} `}>
-          
-          {prd.similars && prd.similars.map( similarPrd => 
-            
-             <Slickslide similarPrd = {similarPrd} setXimg = {setXimg} key={uuidv4()}/>
+
+        <Slickslide prd = {prd} setXimg = {setXimg} key={uuidv4()}/>
+
+          {prd.similars && prd.similars.map((similarPrd , idx) => 
+    
+             <Slickslide prd = {similarPrd} setXimg = {setXimg} key={uuidv4()} similarIdx = {idx}/>
           
           )}
 
