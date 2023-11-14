@@ -31,7 +31,12 @@ setvalue(welcom)
         <Nav id='navTop' className="w-100 d-none d-lg-flex m-0" >
           <img src={EgFlag} width={20} height={15} className='my-auto mx-3  ' />
 
-          {value?<p> toz {value}</p>:          
+          {value?
+          
+         
+          <Nav.Link href='/logout'> welcom {value} </Nav.Link> 
+
+          :
           <Nav.Link href='/login'>سجل الدخول</Nav.Link> }
           <Nav.Link >المرتجعات</Nav.Link>
           <Nav.Link >adiclub</Nav.Link>

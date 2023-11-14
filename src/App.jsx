@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Cart from './Pages/Cart/Cart'
 import Home from './Pages/Home/Home'
 import Login from './Pages/Login/Login'
+
+
 import MainCategory from './Pages/MainCategory/MainCategory'
 import NotFound from './Pages/NotFound/NotFound'
 import Offers from "./Pages/Offers/Offers"
@@ -12,9 +14,11 @@ import SubCategory from './Pages/SubCategory/SubCategory'
 import WishList from './Pages/WishList/WishList'
 import Header from "./Components/Header/Header"
 import Footer from "./Components/Footer/Footer"
+
 import HeaderPromotion from "./Components/HeaderPromotion/HeaderPromotion"
 import store from "./Store/store"
 import { Provider } from 'react-redux';
+import { LogoutPage } from "./Pages/LogoutPage/logoutPage"
 function App() {
 
 
@@ -52,6 +56,7 @@ function App() {
   <Route path="/Register" element= {<Register/>}/>
   <Route path="/:catName/:sub" element= {<SubCategory/>}/>
   <Route path="/WishList" element= {<WishList/>}/>
+  <Route path="/logout" element= {<LogoutPage/>}/>
 </Routes>
 
 <Footer/>

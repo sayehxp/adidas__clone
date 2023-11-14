@@ -37,8 +37,7 @@ export default function Register() {
 
    })
   
-   localStorage.setItem("name",name);
-   localStorage.setItem("email",email);
+
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
           // Signed in

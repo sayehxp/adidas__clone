@@ -1,14 +1,16 @@
 import "./login.css";
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {  signInWithEmailAndPassword, signInWithPopup   } from 'firebase/auth';
-import { auth, provider } from '../firebase';
+import { auth, database, provider } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom'
 import validator from "validator";
+import {  collection, getDocs } from "firebase/firestore";
 
 
 export default function Login() {
   const navigate = useNavigate();
+  const [fname, setName] = useState("");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState({
@@ -17,8 +19,10 @@ passwor:""
 
     });
 
-       
-    const onLogin = (e) => {
+    const onLogin=async(e)=>{
+
+    
+    
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -32,7 +36,20 @@ passwor:""
             const errorMessage = error.message;
             console.log(errorCode, errorMessage)
         });
-       
+        const res =await getDocs(collection(database,"users"));
+  
+        const userNam =  res.docs.forEach((doc)=>{
+    
+            if (doc.data().email==email){
+            
+            const fname=doc.data().firstname ;
+              localStorage.setItem("name",fname);
+              localStorage.setItem("email",email)
+              return doc.data()
+            }
+          
+    
+          })
     } 
 
  const handelEmail=(e)=>{
@@ -57,8 +74,10 @@ passwor:""
     }
     const sinBYGoogel=()=>{
       signInWithPopup(auth,provider).then((res)=>{
-   
-             navigate("/Home")
+     
+        localStorage.setItem("name",( res.user.displayName))
+        localStorage.setItem("email",( res.user.email))
+             navigate("/")
    
            }).catch((err)=>{
              console.log(err);
@@ -68,6 +87,7 @@ passwor:""
            }
   return (
     <>
+    {/* <button onClick={getuser}>get</button> */}
       <div className="adidas-login">
         <nav className=" row justify-content-end mx-4 login-logo">
           <img
@@ -154,44 +174,7 @@ passwor:""
 
             <div className="col-12  cild-lodin-form">
               <h2>سجّل الدخول</h2>
-              {/* <Form
-                className="form-group"
-                autoComplete="off"
-                onSubmit={handleSubmit}
-              >
-                <Form.Group className="mb-3" controlId="formGroupEmail">
-                  <Form.Label>البريد الإلكتروني</Form.Label>
-                  <Form.Control
-                    style={{ height: "50px" }}
-                    type="email"
-                    className={`form-control ${
-                      errors.emailError
-                        ? "border-bottom border-danger shadow-none"
-                        : " border-dark"
-                    }`}
-                    id="emailInput"
-                    name="email"
-                    value={user.email}
-                    onChange={handleForm}
-                  />
-                  <p style={{ color: "red" }}>{errors.emailError}</p>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupPassword">
-                  <Form.Label>كلمة السرّ</Form.Label>
-                  <Form.Control
-                    style={{ border: "1px solid black", height: "50px" }}
-                    type="password"
-                    className={`form-control ${
-                      errors.passwordError ? "border-danger shadow-none" : ""
-                    }`}
-                    id="passwordInput"
-                    name="password"
-                    value={user.password}
-                    onChange={handleForm}
-                  />
-                  <p style={{ color: "red" }}>{errors.passwordError}</p>
-                </Form.Group>{" "}
-              </Form> */}
+             
 
 <form  onSubmit={onLogin} action="">    
          <label className="mt-4" htmlFor="#">

@@ -9,8 +9,6 @@ export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
     let prdIndex = {};
     const  res = await getDocs(collection(db, `products`))
 
-   
-
     const handlePrd = (doc)=>{
 
         const prd = { ...doc.data(), id: doc.id , similars : []};

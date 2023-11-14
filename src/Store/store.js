@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import  allProductsReducr  from "./Slices/allProducts";
 
-
 const store = configureStore(
     {
         reducer:{
