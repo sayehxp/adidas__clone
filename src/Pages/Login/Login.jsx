@@ -21,12 +21,12 @@ passwor:""
 
     const onLogin=async(e)=>{
 
-    
-    
-        e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
+
+
+  e.preventDefault();
+ signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+
             const user = userCredential.user;
             navigate("/")
             console.log(user);
@@ -34,6 +34,8 @@ passwor:""
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            alert(" هناك خطا فى البريد لالكترونى او كلمة السر  ")
+
             console.log(errorCode, errorMessage)
         });
         const res =await getDocs(collection(database,"users"));
@@ -43,10 +45,13 @@ passwor:""
             if (doc.data().email==email){
             
             const fname=doc.data().firstname ;
+            const phoneNum=doc.data().phone;
               localStorage.setItem("name",fname);
-              localStorage.setItem("email",email)
+              localStorage.setItem("email",email);
+              localStorage.setItem("phone",phoneNum);
               return doc.data()
             }
+            
           
     
           })

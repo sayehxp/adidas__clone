@@ -15,8 +15,8 @@ export default function Register() {
  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('');   
-   const [value, setValue] = useState();
-   const [Gender,setGender]=useState()
+   const [Gender,setGender]=useState("");
+   const[phonenu,setPhone]=useState('');
    const [message, setMessage] = useState({
     ema:"",
     passwor:""
@@ -34,6 +34,7 @@ export default function Register() {
     lastname:FamelyName,
     email:email,
     gender:Gender,
+    phone:phonenu,
 
    })
   
@@ -49,6 +50,8 @@ export default function Register() {
       .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          setMessage({ema:"يرجى إدخال عنوان بريد إلكتروني اخر  فهذأ مستخدم بالفعل  "});
+
           console.log(errorCode, errorMessage);
           // ..
       });
@@ -299,14 +302,24 @@ export default function Register() {
             ></i>
             البريد الالكترونى
           </label>
-          <div>
+          <div  className=" position-relative">
             <input
+
+          className= {`from-control text-end ${
+            message.ema ? "border-bottom border-danger shadow-none" : ""
+          }`}
               style={{ width: "90%", height: "50px" }}
               type="email"
               value={email}
               onChange={(e)=>{handelEmail(e)}} 
 
-              />
+              />   
+              {message.ema
+              
+              ? <i className="fa-solid fa-xmark  cansel position-absolute"></i>
+              :  <i class="fa-solid fa-check  raight position-absolute"></i>
+              }
+               
                <p style = {{ color: "red" }}> {message.ema} </p>
 
           </div>
@@ -322,18 +335,32 @@ export default function Register() {
             ></i>
             رقم الهاتف
           </label>
-          <div
+
+  
+<div>
+  <input
+    style={{ width: "90%", height: "50px" }}
+    className="w-90"
+    type ="number"
+  value={phonenu}
+  onChange={(e) => {setPhone(e.target.value)}} />
+
+  
+</div>
+
+          {/* <div
    className="  position-relative"   style={{ width: "90%", height: "70px" }}
 >
           <PhoneInput  
 
 className="phone-input"
   
-  defaultCountry="Eg"
-  value={value}
-  onChange={setValue}/>
+  // defaultCountry="Eg";
+  type ="number"
+  value={phonenu}
+  onChange={(e) => {setPhone(e.target.value)}} />
          
-          </div>
+          </div> */}
 
 
 
@@ -350,15 +377,23 @@ className="phone-input"
             ></i>
             كلمة السرّ
           </label>
-          <div>
+          <div  className=" position-relative">
             <input
+    className= {`from-control text-end ${
+      message.passwor? "border-bottom border-danger shadow-none" : ""
+    }`}
+
               style={{ width: "90%", height: "50px" }}
-              className="w-90"
               type="password"
 
               value={password}
               onChange={(e) => {handelpassword(e)}} 
               />
+                  {message.passwor
+              
+              ? <i className="fa-solid fa-xmark  cansel position-absolute"></i>
+              :  <i className="fa-solid fa-check  raight position-absolute"></i>
+              }
        <p style = {{ color: "red" }}> {message.passwor} </p>
           </div>          
           

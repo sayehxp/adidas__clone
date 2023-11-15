@@ -1,11 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./logout.css";
-// import { useDispatch, useSelector } from "react-redux";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const LogoutPage = () => {
   const [value, setvalue] = useState("");
+  const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  const [user,setUser] =useState("")
+const [email,setEmail]=useState("")
+const[phone,setPhone]=useState('');
+
+
+  useEffect(()=>{
+ const welcom =localStorage.getItem("name");
+ const userEmail=localStorage.getItem("email")
+ const userPhon=localStorage.getItem("phone")
+ setPhone(userPhon)
+ setUser(welcom)
+ setEmail(userEmail)
+
+  },[])
+
+  const onlougOut = () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.clear();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -27,7 +54,7 @@ export const LogoutPage = () => {
         <div className="logout_information   col-sm-6 row justify-content-center">
           <div
             className="memperShip border border-black "
-            style={{width: "87%",  padding: "0px", height: "300px" }}
+            style={{ width: "87%", padding: "0px", height: "300px" }}
           >
             <img
               style={{ width: "100%", height: "75%" }}
@@ -67,9 +94,8 @@ export const LogoutPage = () => {
 
           <div className=" mt-5 d-flex justify-content-end">
             <button
-              type="submit"
+              onClick={onlougOut}
               className="logout_buttne position-relative  "
-           
             >
               <span className="  mx-3">تسجيل الخروج</span>
 
@@ -80,7 +106,7 @@ export const LogoutPage = () => {
             </button>
           </div>
         </div>
-        
+
         <div className="information_acount  col-sm-6 row justify-content-center">
           <div
             className="personal-info  border border-black text-end  p-0"
@@ -95,16 +121,15 @@ export const LogoutPage = () => {
             <div className="border-top border-black w-100 p-2">
               <div className="d-flex">
                 <a className="col-10 text-start " href="#">
-                
                   عدل
                 </a>
                 <h6 className="col-2">نفاصيل </h6>
               </div>
               <div className="detiels">
-                <p> abdo</p>
+                <p> {user}</p>
                 <p>pirthDay</p>
-                <p>email</p>
-                <p>رقم الهاتف</p>
+                <p>{email}</p>
+                <p>{phone} </p>
               </div>
               <div className="d-flex mt-5">
                 <a className="col-9 text-start " href="#">
