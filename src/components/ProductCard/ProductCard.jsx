@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import './ProductCard.css'
 import Slickslide from '../Slickslide/Slickslide';
@@ -9,6 +10,7 @@ const [hoverON ,  setHoverON] = useState(false)
 const currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'EGP'});
 
 const showSecondImg = ()=> {
+  // eslint-disable-next-line react/prop-types
   setXimg(prd.imgurl[4]);
   setHoverON(true)
 }
