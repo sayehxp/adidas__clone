@@ -1,7 +1,10 @@
 //____________PRODUCTDETAILS________________
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useEffect } from 'react'
 =======
+=======
+>>>>>>> sayeh
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 >>>>>>> sayeh
