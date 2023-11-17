@@ -1,0 +1,43 @@
+.cart-menu{
+    border: 1px solid blue;
+    background-color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    letter-spacing: 0.90px;
+    top: 0;
+    height: 100vh;
+    width: 33.5% !important;
+    position: absolute;
+    z-index: 9;
+    overflow: scroll;
+}
+
+.cart-menu > *{
+    padding: 10px;
+}
+.prd-descr{
+display: flex;
+flex-direction: column;
+width: 100%;
+
+& *{
+margin-block: 3px;
+}
+
+
+.prd-qty{
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid rgba(128, 128, 128, 0.242);
+    font-size: small;
+    color: rgba(38, 37, 37, 0.782)
+}
+
+.prd-price{
+    font-size: small;
+    font-weight: normal;
+
+}
+
+}

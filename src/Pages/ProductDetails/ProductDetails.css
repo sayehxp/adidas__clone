@@ -43,22 +43,24 @@ height: 100% !important;
     transform: translateX(-50%);
 }
 
-
-.details-similars{
+.alternative-container{
     margin-top: 35px;
     width: 90%;
+}
+.details-alternative{
+
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-start;
     
 }
 
-.details-similars p{
+.details-alternative p{
    font-size: 16px;
    font-weight: 700;
 }
 
-.details-similars .slick-slide img{
+.details-alternative .slick-slide img{
     width: 120px;
     height: 120px;
 }

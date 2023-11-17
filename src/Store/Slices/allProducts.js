@@ -3,71 +3,63 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../assets/Firebase/Firebase';
 
-export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
-try {
-    const prdArr  = [] , prdNames = [] , prdIndex = {};
-    const  res = await getDocs(collection(db, `products`))
+export const GETallProducts = createAsyncThunk('GETallProducts', async () => {
 
-    const filterImgs = (arr) => {
-        const temp = [...arr];
-        while (arr.length > 0 && !arr[arr.length - 1].endsWith('detail.jpg')) {
-          arr.pop()
+    try {
+
+        const prdArr = [], prdAlternative = [], productsKeys = [];
+        const productDB = await getDocs(collection(db, 'products'))
+        console.log('connect DB')
+        console.log('CONNECETD SUCCESSFULLY', productDB.docs.length)
+
+        const filterImgs = (arr , id) => {
+            const temp = [...arr];
+            while (arr.length > 0 && !arr[arr.length - 1].endsWith('detail.jpg')) {
+                arr.pop();
+            }
+    
+          
+            return arr.length == 0 ? temp : arr;
         }
 
-        if(arr.length == 0){return temp}
-        return arr;
-      }
 
-    const handlePrd = (doc)=>{
-        
-        const prd = { ...doc.data(),
-                     id: doc.id ,
-                     index : prdArr.length,
-                     similars : [],
-                    };
-        
-        prd.imgurl =  filterImgs(prd.imgurl)
+        productDB.docs.forEach(doc => {
+            const prd = { ...doc.data(), id: doc.id, };
+            prd.imgurl = filterImgs(prd.imgurl , prd.id);
 
-        if(prdNames.includes(prd.name+prd.category)){
-
-            let x = prdIndex[prd.name+prd.category];
-            prd.index = prdArr[x].index
-            prdArr[x].similars.push(prd);
-
-
-        }else{
-            
-            prdArr.push(prd);
-            prdIndex[prd.name+prd.category] = prdArr.length - 1
-            prdNames.push(prd.name+prd.category)
+            const prdKey = prd.name + prd.gender + prd.category;
+            if (!productsKeys.includes(prdKey)) {
+                productsKeys.push(prdKey);
+                prdArr.push(prd);
+            } else {
+                prdAlternative.push(prd);
+            }
         }
-        
-        
 
+        )
+
+
+        return { filterProducts: prdArr, alternative: prdAlternative };
+
+
+
+    } catch (err) {
+        console.error('err', err);
     }
 
-    res.docs.forEach(doc => handlePrd(doc))
-   
-    return prdArr;
 
-
-
-} catch (err) {
-    console.error('err' , err)
-}
-    
-    
 })
 
 const allProducts = createSlice({
-    name : 'allProducts',
-    initialState : {allProducts: []},
-    extraReducers : (builder) => {
-        builder.addCase(GETallProducts.fulfilled , (state,action) => {
-            state.allProducts = action.payload
-            console.log('fired REDUX ' , state.allProducts)
+    name: 'allProducts',
+    initialState: { allProducts: [], alternative: ["123"] },
+    extraReducers: (builder) => {
+        builder.addCase(GETallProducts.fulfilled, (state, action) => {
+            state.allProducts = action.payload['filterProducts'];
+            state.alternative = action.payload['alternative'];
+
         })
-    } 
+    }
 
 
 })

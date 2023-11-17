@@ -6,7 +6,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProductCard from '../../Components/ProductCard/ProductCard';
-import { GETallProducts } from "../../Store/Slices/allProducts";
 import { db } from '../../assets/Firebase/Firebase';
 import './AdidasBtn.css';
 import './Home.css';
@@ -33,17 +32,15 @@ export default function Home() {
   
   useEffect(() => {
 
-    handleGetDoc("what's new").then(data => setWhatsNew(data));
-    handleGetDoc("what's most sold").then(data => setWhatMostSold(data));
+    // handleGetDoc("what's new").then(data => setWhatsNew(data));
+    // handleGetDoc("what's most sold").then(data => setWhatMostSold(data));
 
-    dispatch(GETallProducts()) 
+    // dispatch(GETallProducts()) 
 
   
   }, [])
 
-  useEffect(()=>{
 
-  },[allProducts])
 
 function handleSwiperNav(num) {
     return {
@@ -265,7 +262,7 @@ const pagination = {
           </picture>
 
 
-          <figcaption className='text-end' style={{"font-size":"12px"}}>        
+          <figcaption className='text-end' style={{"fontSize":"12px"}}>        
             <strong className='my-2 d-block'>وسع حدودك مع اليوغا</strong>
             <p className='opacity-75'>ناعم ، لين ، مجموعة يوغا مريحة لدعمك غى كل الوضعيات </p>  
             <strong><a href='' className='text-dark mt-2'>تسوق الان</a></strong>   
@@ -293,7 +290,7 @@ const pagination = {
           </picture>
 
       
-          <figcaption className='text-end' style={{"font-size":"12px"}}>        
+          <figcaption className='text-end' style={{"fontSize":"12px"}}>        
             <strong className='my-2 d-block'>كل ما يحتاج إليه الشباب</strong>
             <p className='opacity-75'>تخطى كل الحدود بأسلوب يتميز بالراحة والأناقة. تشكيلة جديدة ولدت في قلب المدينة وانطلقت إلى </p>  
             <strong><a href='' className='text-dark mt-2'>تسوق الان</a></strong>   
@@ -318,7 +315,7 @@ const pagination = {
           </picture>
           </figure>
    
-          <figcaption className='text-end' style={{"font-size":"12px"}}>        
+          <figcaption className='text-end' style={{"fontSize":"12px"}}>        
             <strong className='my-2 d-block'>و تعيش الأسطورة</strong>
             <p className='opacity-75'>
             جلد ناعم ، خياطة ممتازة وألوان ترابية. هذا هو تراثنا
