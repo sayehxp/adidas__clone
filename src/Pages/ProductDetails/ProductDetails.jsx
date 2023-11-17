@@ -1,13 +1,9 @@
 //____________PRODUCTDETAILS________________
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import React, { useEffect } from 'react'
-=======
-=======
->>>>>>> sayeh
+
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
->>>>>>> sayeh
+
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../assets/Firebase/Firebase';
