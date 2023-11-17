@@ -17,6 +17,7 @@ export default function Register() {
   const [password, setPassword] = useState('');   
    const [Gender,setGender]=useState("");
    const[phonenu,setPhone]=useState('');
+   const [show,setshow]=useState(false)
    const [message, setMessage] = useState({
     ema:"",
     passwor:""
@@ -92,7 +93,9 @@ export default function Register() {
 
 
         }
-     
+     const onshow=()=>{
+      setshow(!show)
+     }
       
   return (
     <>
@@ -361,10 +364,23 @@ className="phone-input"
   onChange={(e) => {setPhone(e.target.value)}} />
          
           </div> */}
+<div className="row mt-4">
+  
+  <div className="show col-9 text-start" style={{paddingLeft:"60px"}}> 
+  
+  
+ <i className="onshow-pass mx-2" onClick={onshow}> اظهار</i>
 
+ {show
+ ?<i class="fa-solid fa-eye"></i>
 
+ :<i class="fa-solid fa-eye-slash"></i>
 
-          <label className="mt-4" htmlFor="#">
+ }
+   
+   </div>
+  
+          <label className="col-2" htmlFor="#">
 
           <i
               className="fa-solid fa-star "
@@ -376,16 +392,24 @@ className="phone-input"
               }}
             ></i>
             كلمة السرّ
+
           </label>
+    </div>
+
+                                
+
           <div  className=" position-relative">
             <input
     className= {`from-control text-end ${
       message.passwor? "border-bottom border-danger shadow-none" : ""
     }`}
 
-              style={{ width: "90%", height: "50px" }}
-              type="password"
+   type= {(show ===false)? "password":"text"}
 
+              style={{ width: "90%", height: "50px" }}
+
+             
+            
               value={password}
               onChange={(e) => {handelpassword(e)}} 
               />
@@ -398,7 +422,9 @@ className="phone-input"
           </div>          
           
 
-       
+
+
+
           <p>
             يجب أن يكون ٨ رموز على الأقل مع حرف صغير وكبير ورقم واحد ورمز خاص
           </p>

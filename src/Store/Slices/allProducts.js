@@ -31,8 +31,7 @@ export const GETallProducts = createAsyncThunk('GETallProducts',async()=> {
     }
 
 
-    res.docs.forEach(doc => handlePrd(doc))
-
+ 
     return prdArr
     
     // console.log(prdArr)

@@ -55,6 +55,11 @@
         width: 90% !important;
         height: 50px !important;
       }
+      .onshow-pass:hover{
+color: white;
+background-color: black;
+cursor: pointer;
+      }
    
     @media (max-width: 992px) { 
 
