@@ -20,8 +20,8 @@ const ProductDetails = () => {
   const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EGP' });
   const [activeSize, setActiveSize] = useState('')
   const [bounceAnime, setBounceAnime] = useState(false)
-  const [innerWinWidth, setInnerWinWidth] = useState(window.innerWidth)
-
+  const [innerWinWidth, setInnerWinWidth] = useState(window.innerWidth);
+  const [cartMenuActive, setCartMenuActive] = useState(false)
 
 
 
@@ -33,12 +33,20 @@ const ProductDetails = () => {
   const effRan = useRef(false);
 
   useEffect(() => {
-    const _prd = allProducts.find(prd => prd.id == id) || alternative.find(prd => prd.id == id)
+    const _prd = allProducts.find(prd => prd.id == id) || alternative.find(prd => prd.id == id);
+
     setPrd(_prd);
     scrollToTop();
-  
+
+
+
   }, [allProducts])
 
+
+  useEffect(() => {
+    const random = Math.floor(Math.random() * 6 + 1);
+    prd && setPrd({ ...prd, stock: random });
+  }, [activeSize])
 
   useEffect(() => {
     if (effRan.current) return;
@@ -50,6 +58,10 @@ const ProductDetails = () => {
   }, [location]);
 
 
+  const addToCart = () => {
+    setCartMenuActive(true);
+
+  }
 
 
   const prdImages = prd?.imgurl?.map(value =>
@@ -62,9 +74,16 @@ const ProductDetails = () => {
   return (
 
     <>
+
+      {prd && <div className={cartMenuActive ? 'd-flex' : 'd-none'}>
+        <CartMenu setCartMenuActive={setCartMenuActive} activeSize={activeSize} prd={prd} />
+      </div>}
+      
       {prd &&
-        <div className='details row'>
-<CartMenu/>
+
+        <div className={`details row mx-0 ${cartMenuActive && 'freeze'}`}>
+
+
           <aside className="col-4 text-end">
 
             <p className='prd-name'>{prd.name}</p>
@@ -102,7 +121,7 @@ const ProductDetails = () => {
             <span className='text-warning'>{bounceAnime ? 'يرجى اختيار المقاس' : ''}</span>
             <div className="qty" style={{ direction: 'rtl' }}>
               <label className='fw-bold'> إمكانية التوفر: </label>
-              <span className='px-2 text-muted'>{activeSize ? `only ${Math.floor(Math.random() * 6 + 1)} left` : ' اختر الطرازات المتوفرة'}</span>
+              <span className='px-2 text-muted'>{activeSize ? `only ${prd.stock} left` : ' اختر الطرازات المتوفرة'}</span>
             </div>
 
 
@@ -112,6 +131,7 @@ const ProductDetails = () => {
               <div className='btn-add-to-cart col-8' onClick={() => {
                 setBounceAnime(!activeSize);
                 setTimeout(() => setBounceAnime(false), 1000);
+                activeSize && addToCart();
               }}>
                 <button className={`btn-adidas-dark w-100 ${!activeSize ? 'bg-secondary' : ''}`}>
                   <i className="arrow-front" />
@@ -170,12 +190,12 @@ const ProductDetails = () => {
 
             {prd?.imgurl?.map((value, index) =>
 
-              <div 
-              style={{
-                width: index == 0 || index == prdImages.length - 1 && !(prdImages.length % 2) ? '95%' : '47%',
-                display: !showMore && index >= 5 ? 'none' : 'inline-flex'
-              }}
-              key={uuidv4()}
+              <div
+                style={{
+                  width: index == 0 || index == prdImages.length - 1 && !(prdImages.length % 2) ? '95%' : '47%',
+                  display: !showMore && index >= 5 ? 'none' : 'inline-flex'
+                }}
+                key={uuidv4()}
               >
                 <ImageZoom key={uuidv4()} src={value} zoom="200" width={index == 0 ? '100%' : '99.5%'} />
               </div>
@@ -224,6 +244,9 @@ const ProductDetails = () => {
 
 
           </main>
+
+
+
         </div>}
 
     </>

@@ -1,16 +1,37 @@
-.cart-menu{
-    border: 1px solid blue;
-    background-color: rgb(255, 255, 255);
-    font-family: sans-serif;
-    letter-spacing: 0.90px;
-    top: 0;
-    height: 100vh;
-    width: 33.5% !important;
+.shadow-container{
+    
+
+    background-color: rgba(0, 0, 0, 0.466) !important;
+    width:100% !important;
+    height:100% !important;
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 9;
-    overflow: scroll;
 }
 
+.cart-menu{
+
+    background-color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    top: 0;
+    height: 100vh;
+    width: 30% !important;
+    position: absolute;
+    z-index: 8;
+    overflow-y: auto;
+    padding: 10px;
+ 
+}
+.close-btn{
+    position: absolute;
+    left: 0;
+    top: 5px;
+    cursor: pointer;
+}
+.cart-header{
+    letter-spacing: 0.90px;
+}
 .cart-menu > *{
     padding: 10px;
 }

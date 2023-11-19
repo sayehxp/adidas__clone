@@ -2,15 +2,16 @@
 import React from 'react'
 import './CartItem.css'
 //__________________________
-const CartItem = () => {
+const CartItem = ({ prd, activeSize }) => {
     const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EGP' });
 
 
     return (
-        <div className="prd-item my-4 d-flex">
+
+        <div className="prd-item my-2 d-flex">
 
             <div className="prd-img">
-                <img src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
+                <img src={prd.imgurl[0]}
                     width={180} height={170}
                     className='ms-3'
                 />
@@ -18,29 +19,35 @@ const CartItem = () => {
 
 
             <div className="prd-descr">
-                <span className='fw-bold'>Product Name</span>
+                <span className='fw-bold'>{prd.name}</span>
 
                 <div className='prd-price'>
 
                     <del className='prev-price'>
-                        {currency.format(99999)}
+                        {currency.format(prd.oldprice)}
                     </del>
                     <span className="cur-price">
-                        {currency.format(5555)}
+                        {currency.format(prd.price)}
                     </span>
 
                 </div>
 
-                <span> مقاس : <small>24</small>  </span>
+                <span> مقاس : <small>{activeSize}</small>  </span>
 
                 <select className='prd-qty'>
-                    <option value={1}>1</option>
+                    {
+                        Array(prd.stock).fill().map((_, i) =>
+                            <option value={i + 1} key={i}>
+                                {i + 1}
+                            </option>
+                        )
+                    }
                 </select>
 
 
                 <div className='prd-stock mt-3'>
                     <span className='text-secondary'>
-                        <small>only 2 left</small>
+                        <small>only {prd.stock} left</small>
                     </span>
                 </div>
             </div>
