@@ -1,0 +1,113 @@
+#nav{
+    border-bottom: 1px solid #ebedee;
+}
+
+#navTop{
+    font-size: 13px;
+    line-height: 16px;
+    margin-left: 24px;
+    /* display: none !important; */
+}
+
+
+#navLinksBottom *{
+    /* display: none; */
+    font-size: 16px;
+    line-height: 18px;
+    text-transform: uppercase;
+    padding: 0 10px;
+    font-family: "AdihausDIN",sans-serif;
+    color: black;
+    cursor: pointer;
+    letter-spacing: 1.8px;
+    font-weight: bold;
+    align-items: center; 
+    
+}
+
+/* img[title='fav']{
+    display: none;
+} */
+
+/* 
+.srch-container{
+    display: none;
+} */
+
+
+
+#srchinput{
+    height: 30px;
+    background-color: #ebedee;
+    border: none;
+    border-radius: 4px;
+    
+    &::placeholder {
+        font: 10px;
+        opacity: 0.7;
+        font-weight: 100;
+    }
+    
+}
+.utility_nav{
+display: flex;
+align-items: center;
+font-size: larger;
+flex-direction: row-reverse;
+justify-content: center;
+margin-left: 50px;
+& *{
+  margin-left:10px ;  
+}
+}
+
+
+.nav-toggle-btn{
+    
+    font-size: 24px;
+    margin-top: 5px;
+    display: inline-block;
+    
+}
+.srchbtn{
+    position: relative;
+    z-index: 9;
+    
+ 
+    border: none;
+    background-color: transparent;
+
+}
+.notification {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
+  }
+  
+ 
+  
+  .notification .badge {
+    background-color: #0071ae;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    position: absolute;
+    top: -8px;
+    right: -13px;
+    left: auto;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .imgnotif{
+    width: 24px;
+    height: 24px;
+  cursor: pointer;
+  }
