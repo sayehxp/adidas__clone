@@ -1,27 +1,75 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EmptyCart } from "../../components/EmptyCart/EmptyCart";
 import "./Cart.css";
 import { useDispatch, useSelector } from "react-redux";
+import { GETallProducts } from "../../Store/Slices/allProducts";
+import Dropdown from "react-bootstrap/Dropdown";
+import { CartViewItem } from "../../components/CartViewItem/CartViewItem";
+
 export default function Cart() {
+  const [Cartprd, setCartprd] = useState([]);
+ 
+  const [totalPrisce,setTotalPrice]=useState(0)
+  const CartRedux = useSelector((state) => state.Cart.Cartp);
+  const dispatch = useDispatch();
+  const allProducts = useSelector((state) => state.allProducts.allProducts);
+  const effRan = useRef(false);
+
+  useEffect(() => {
+    if (allProducts.length == 0) return;
+    const newArr = [];
+    let total=0
+    CartRedux.map((product) => {
+      let orginalprd = allProducts.find((x) => x.id == product.id);
+
+      let newOrginalPrd = {
+        ...orginalprd,
+        cartSize: product.size,
+        cartQty: product.qty,
+      };
+      console.log(newOrginalPrd);
+
+      newArr.push(newOrginalPrd);
+      // setTotalPrice(product.price)
+      
+      total+= parseInt(newOrginalPrd.cartQty*newOrginalPrd.price)
+
+    });   
+    setCartprd(newArr);
+    setTotalPrice(total)
+  }, [allProducts]);
+
+  useEffect(() => {
+    if (effRan.current) return;
+
+    if (!allProducts.length) {
+      dispatch(GETallProducts());
+      console.log("request pai");
+    }
+
+    return () => {
+      effRan.current = true;
+    };
+  }, []);
 
 
-//   const Cartp = useSelector((state) => state.Cart.Cartp)
-// const dispatch = useDispatch()
 
-// console.log(Cartp);
-  
   return (
-    <>
-      {/* <EmptyCart/> */}
-      <div className="padge  row justify-content-end text-end ">
+    <>  
+    {(Cartprd.length==0)? 
+      <EmptyCart/> 
+      :<>
+ <div className="padge  row justify-content-end text-end ">
         <h1 className="col-4 m-2 ">
           حقيبتك
-          <span className="col-2 prd-unreserve ">(1 منتجات غير محجوزة)</span>
+          <span className="col-2 prd-unreserve ">({Cartprd.length} منتجات غير محجوزة)</span>
         </h1>
       </div>
-
       <div className="cartProudact d-flex">
-        <div className="orders-summery mt-4 col-4 row justify-content-end">
+        <div
+          className="orders-summery mt-4 col-4 row justify-content-end"
+          style={{ height: "200px" }}
+        >
           <div
             className="ordes-information border boredr-black text-end p-2"
             style={{ width: "90%" }}
@@ -29,7 +77,7 @@ export default function Cart() {
             <h4>ملخص الطلب </h4>
 
             <div className="row ">
-              <p className="col-9 text-start"> Egp 4,458</p>
+              <p className="col-9 text-start">Egp {totalPrisce}</p>
               <p className="col-2">المجموع</p>
 
               <p className="col-9 text-start"> مجاناً</p>
@@ -40,8 +88,8 @@ export default function Cart() {
               </p>
 
               <p className="col-9 text-start" style={{ fontWeight: 700 }}>
-                {" "}
-                Egp 4,458
+               
+                Egp {totalPrisce}
               </p>
               <p className="col-2" style={{ fontWeight: 700 }}>
                 المجموع
@@ -100,35 +148,13 @@ export default function Cart() {
         </div>
 
         <div className="orders-detaiels col-8 mt-4 row justify-content-end ">
-          <div
-            className="ditales border border-black p-2"
-            style={{ width: "90%", height: "250px" }}
-          >
-            <div className="content row">
-              <div className="text-order col-8">
-                <div className="row text-end ">
-                  <div className="col-8 text-start">
-                    <i className="fa-solid fa-xmark mx-3"></i>
-                    Egp 4,458
-                  </div>
-                  <p className="col-4" style={{ fontWeight: 700 }}>
-                    حذاء Adistar 2.0
-                  </p>
-                  <p>Core Black / Core Black / Cloud White</p>
-                  <p>مقاس: 46 2/3</p>
-                  <p>Only 1 Left</p>
-                  <a href=""> عدل</a>
-                  <p>Only 1 Left</p>
-
-                </div>
-              </div>
-              <div className="im-order col-4 p-0">
-
-              </div>
-            </div>
-          </div>
+          {Cartprd.map((prd) => 
+          <CartViewItem  totalPrisce={totalPrisce} setTotalPrice={setTotalPrice} prd={prd} key={prd.id}/>
+          )}
         </div>
       </div>
-    </>
+      </>
+      }
+     </>
   );
 }

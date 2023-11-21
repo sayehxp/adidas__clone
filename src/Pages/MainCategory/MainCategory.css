@@ -6,7 +6,6 @@
 
 .prd-card {
   width: 99%;
-
 }
 
 .prd-row{
@@ -64,9 +63,9 @@
     width: 95%;
   }
   .main .prd-container {
-
     width: 25%;
-    
+    position: relative;
+
   }
 
 

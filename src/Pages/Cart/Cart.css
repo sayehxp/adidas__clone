@@ -22,7 +22,11 @@ color: black;
         background-color:gray;
         color: black;
     }
-.im-order{
+/* .im-order{
     background-image: url("https://assets.adidas.com/images/w_275,f_auto,q_auto/28a7701307534dbc901caf4600f73e3e_9366/HQ6995_01_standard.jpg");
 background-size: cover;
+} */
+.slec{
+   direction: rtl;
+   margin-left: 20px;
 }

@@ -6,11 +6,13 @@ import './HeaderRwd.css'
 import EgFlag from '../../assets/icons/EgFlag.png';
 import HeaderPromotion from '../HeaderPromotion/HeaderPromotion';
 import { Value } from 'sass';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
 
  const [value,setvalue] =useState("")
 
+ const Navigate =useNavigate();
 
  useEffect(()=>{
 const welcom =localStorage.getItem("name")
@@ -79,7 +81,7 @@ setvalue(welcom)
             </a>
             <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/default/dw217f2aa1/images/profile.svg" title="Profile" />
             <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/ar_EG/v1697860680345/images/wishlist.svg" title="wishlist" />
-           <Nav.Link href='/Cart'>    <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/default/dwa2f65e79/images/bag%20empty.svg" title="cart" />  </Nav.Link>
+          <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/default/dwa2f65e79/images/bag%20empty.svg" title="cart"  onClick={ ()=>{Navigate("/Cart")}}/>  
             <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/default/dw33f9c777/images/bag_full.svg" title="cart" className='d-none' />
           </div>
 
