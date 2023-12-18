@@ -1,0 +1,16 @@
+.CartViewItem{
+    height: 255px;
+    max-height: 255px;
+    
+}
+
+@media (min-width:768px) {
+
+
+    .CartViewItem{
+        height: 350px;
+        max-height: 350px;
+        
+    }
+    
+}
