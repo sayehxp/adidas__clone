@@ -58,7 +58,6 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/offers" element={<Offers />} />
-                        <Route path="/home" element={<Home />} />
                         <Route path="/Cart" element={<Cart />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/:catName" element={<MainCategory />} />

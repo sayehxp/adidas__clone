@@ -17,12 +17,13 @@ import {
   swiperBreakPoints2,
 } from "../../config/config";
 
+import { doc, getDoc } from "firebase/firestore";
 import Slickslide from "../../Components/Slickslide/Slickslide";
 import appContext from "../../Context/appContext";
+import { db } from "../../assets/Firebase/Firebase";
 import CartMenu from "./../../Components/CartMenu/CartMenu";
 import { addToCart } from "./../../Store/Slices/cartSlice";
 import "./ProductDetails.css";
-
 //__________________________
 const ProductDetails = () => {
   const { setActiveWishlistAlert, setMsgWishListAlert } =
@@ -46,15 +47,25 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  useEffect(() => {
-    const _prd =
+  const findPrdById = async (id) => {
+    let prd =
       allProducts.find((prd) => prd.id == id) ||
       alternative.find((prd) => prd.id == id);
-    setPrd(_prd);
-    scrollToTop();
-  }, [allProducts, location]);
+
+    if (!prd) {
+      const docRef = doc(db, "products", id);
+      const snapshot = await getDoc(docRef);
+      prd = { ...snapshot.data(), id: id };
+    }
+
+    return prd;
+  };
+
+  const getProduct = async (id) => {
+    const prd = await findPrdById(id);
+    setPrd(prd);
+  };
 
   useEffect(() => {
     cartMenuActive
@@ -63,9 +74,8 @@ const ProductDetails = () => {
   }, [cartMenuActive]);
 
   useEffect(() => {
-    if (!allProducts.length) {
-      dispatch(GETallProducts());
-    }
+    window.scrollTo({ top: 0 });
+    getProduct(id);
   }, [location]);
 
   const showCartMenu = async () => {
@@ -98,15 +108,15 @@ const ProductDetails = () => {
 
   return (
     <>
-      {prd && (
-        <div className={cartMenuActive ? "d-flex" : "d-none"}>
+      {prd && cartMenuActive && (
+     
           <CartMenu
             setCartMenuActive={setCartMenuActive}
             cartMenuActive={cartMenuActive}
             activeSize={activeSize}
             prd={prd}
           />
-        </div>
+ 
       )}
 
       {prd && (

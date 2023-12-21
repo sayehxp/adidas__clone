@@ -1,16 +1,23 @@
 .CartViewItem{
-    height: 255px;
-    max-height: 255px;
-    
+    height: 200px;
+    max-height: 200px;
+    margin-block:95px ;
 }
-
+.cart_view_item--name{
+    color: rgb(22, 15, 15);
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    text-transform: capitalize;
+}
 @media (min-width:768px) {
 
 
     .CartViewItem{
-        height: 350px;
-        max-height: 350px;
-        
+        height: 300px;
+        max-height: 300px;
+        margin-block:20px ;
     }
     
 }

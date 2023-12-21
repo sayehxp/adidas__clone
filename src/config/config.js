@@ -12,7 +12,7 @@ export const icons = {
 }
 
 export const Local_Images = {
-  ad_mobile: 'https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/ar_EG/dw02c98d1f/em-ae-ALAHLY-football-fw23-launch-hp-mh-m-ar.jpg',
+  ad_mobile: 'https://i.ibb.co/yhChTmY/345890173-226949366618377-9037777883254019738-n.png',
   ad_desktop: 'https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/ar_EG/dw7212e6b9/em-ae-ALAHLY-football-fw23-launch-hp-mh-d-ar.jpg',
   home_mobile: 'https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/default/dw240d5048/MENA_Local_Activations/em-eg-Wintershop-originals-fw23-launch-hp-tc-m.jpg',
   home_desktop: 'https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/default/dwf32be46a/MENA_Local_Activations/em-eg-Wintershop-originals-fw23-launch-hp-tc-d.jpg',
@@ -93,7 +93,7 @@ export const handleSwiperNav = (num) => {
   return {
     nextEl: `.swiper${num}-btn-next`,
     prevEl: `.swiper${num}-btn-prev`,
-    disabledClass: `.swiper${num}-button-disabled`
+    // disabledClass: `.swiper${num}-button-disabled`
   }
 
 }

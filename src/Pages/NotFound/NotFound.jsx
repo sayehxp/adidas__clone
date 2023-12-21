@@ -15,7 +15,7 @@ export default function NotFound() {
           <div
           className="btn-toHome"
             onClick={() => {
-              Navigate("/Home");
+              Navigate("/");
             }}
           >
            

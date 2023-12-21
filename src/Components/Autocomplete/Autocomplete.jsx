@@ -44,7 +44,7 @@ const Autocomplete = ({setSrchActive}) => {
                 <i className="fa-solid fa-xmark d-lg-none position-absolute pt-3 ms-3 fs-4 opacity-75"
                 onClick={()=> {setSrchActive(false)}}/>
 
-                <input type='text' id='srchinput' placeholder=' بحث' dir='rtl' 
+                <input type='text' id='srchinput' placeholder=' بحث' dir='rtl' autoComplete="off"
                 onChange={(e) => setFilterValue(e.target.value)} />
             </div>
           
@@ -68,6 +68,7 @@ const Autocomplete = ({setSrchActive}) => {
                                     
                                     navigate(`details/${prd.id}`);
                                     setFilterValue('');
+                                    setSrchActive(false);
                                 }}
                             >
 

@@ -349,7 +349,7 @@ export const FilterMenu = ({ filterResult, setFilterResult, alternative, allProd
                         </Collapse>
                     </div>
                     {/*▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ نوع المنتج ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ▬*/}
-                    <div className="collapse-category border-top">
+                    <div className="collapse-category border-top d-none">
 
                         <div
                             onClick={() => setCollapseCategory(!collapseCategory)}

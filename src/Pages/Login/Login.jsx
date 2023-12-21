@@ -83,11 +83,12 @@ export default function Login() {
   const sinBYGoogel = () => {
 
     signInWithPopup(auth, provider).then((res) => {
-      alert(111);
+      
       localStorage.setItem("name", (res.user.displayName))
       localStorage.setItem("email", (res.user.email))
-      // navigate("/")
-      // window.location.reload()
+       navigate("/")
+      
+       window.location.reload()
 
     }).catch((err) => {
       console.log(err);
