@@ -2,10 +2,10 @@
 
 import { register } from 'swiper/element/bundle';
 import { useEffect, useRef, useState } from 'react';
-import img3 from '../../assets/images/oie_6170zLx3FmTY.png'
-import img4 from '../../assets/images/81m3hAvBeaL._AC_SY575_-removebg-preview.png'
-import img5 from '../../assets/images/81++dmPpFdL._AC_SY575__1_-removebg-preview.png'
-import img6 from '../../assets/images/71DQRyvIX6L._AC_SY695__1_-removebg-preview.png'
+// import img3 from '../../assets/images/oie_6170zLx3FmTY.png'
+// import img4 from '../../assets/images/81m3hAvBeaL._AC_SY575_-removebg-preview.png'
+// import img5 from '../../assets/images/81++dmPpFdL._AC_SY575__1_-removebg-preview.png'
+// import img6 from '../../assets/images/71DQRyvIX6L._AC_SY695__1_-removebg-preview.png'
 import './style/offers.css'
 
 import './style/product.css'

@@ -33,18 +33,16 @@ function Header() {
     if (effRan.current) return;
     setEmail(localStorage.getItem("name")); //email
     dispatch(getSetting());
-    dispatch(GETallProducts());
     dispatch(getFromCart());
     getWishlistByEmail()
       .then((data) => dispatch(getWishListFirestore(data)))
       .catch((err) => console.log(err));
-
+    dispatch(GETallProducts({ gender: "الأطفال", category: "أحذية" }));
+    setTimeout(() => {
+      dispatch(GETallProducts({ gender: "الرجال", category: "هودي" }));
+    }, 500);
     return () => (effRan.current = true);
   }, []);
-
-  const getFavLength = () => {
-    return favorites.length
-  };
 
   return (
     <header>
@@ -61,8 +59,6 @@ function Header() {
       >
         {!srchActive ? (
           <>
-            
-
             {/* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ TOP Nav ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬*/}
             <Nav id="navTop" className="w-100 d-none d-lg-flex m-0">
               <img
@@ -71,8 +67,8 @@ function Header() {
                 height={15}
                 className="my-auto mx-3"
               />
-              <Nav.Link href={email ? "/logout" : "/login"}>
-                {email?.length ? email : "تسجيل الدخول"}{" "}
+              <Nav.Link onClick={() => Navigate(email ? "/logout" : "/login")}>
+                {email?.length ? email : "تسجيل الدخول"}
               </Nav.Link>
               <Nav.Link>المرتجعات</Nav.Link>
               <Nav.Link>adiclub</Nav.Link>
@@ -91,7 +87,7 @@ function Header() {
 
               <Navbar.Brand
                 className="adidas_logo col-9 me-1 col-lg-2 justify-content-center d-flex order-4 order-lg-1"
-                onClick={() => Navigate("home")}
+                onClick={() => Navigate("/")}
               >
                 <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/default/dwe85a3da9/images/adidas_logo.svg" />
               </Navbar.Brand>
@@ -104,16 +100,15 @@ function Header() {
                 <Nav.Link onClick={() => Navigate("men")}>الرجال</Nav.Link>
                 <Nav.Link onClick={() => Navigate("women")}>النساء</Nav.Link>
                 <Nav.Link onClick={() => Navigate("kids")}>الاطفال</Nav.Link>
-                <Nav.Link onClick={() => Navigate("sports")}>الرياضات</Nav.Link>
-                <Nav.Link onClick={() => Navigate("lifestyle")}>
-                  اسلوب حياه
-                </Nav.Link>
-                <Nav.Link onClick={() => Navigate("offers")}>عروض</Nav.Link>
+                <Nav.Link>الرياضات</Nav.Link>
+                <Nav.Link>اسلوب حياه</Nav.Link>
+                {/* <Nav.Link>عروض</Nav.Link> */}
               </ul>
 
               <div className="col-1 position-relative col-lg-5 d-flex order-4 m-0 me-auto z-1 ">
                 <div className="utility_nav">
-                  <div className="d-none d-lg-block">
+
+                  <div className="d-none d-lg-block" id="kkakaka">
                     <Autocomplete setSrchActive={setSrchActive} />
                   </div>
 
@@ -170,7 +165,7 @@ function Header() {
           <>
             <Navbar.Brand
               className="col-12 d-flex justify-content-center"
-              onClick={() => Navigate("home")}
+              onClick={() => Navigate("/")}
             >
               <img src="https://www.adidas.com.eg/on/demandware.static/Sites-adidas-EG-Site/-/default/dwe85a3da9/images/adidas_logo.svg" />
             </Navbar.Brand>

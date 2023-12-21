@@ -16,12 +16,15 @@
     object-fit: cover;
 }
 
+.homepage-cover-text--button {
+  z-index: 1;
+}
 .homepage-cover-text {  
   position: absolute;
   top:0%;
   width: 100%;
   height: 100%;
-  z-index: 1;
+
   color: white;
   display: flex;
   flex-direction: column;

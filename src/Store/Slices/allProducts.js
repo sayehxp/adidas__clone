@@ -1,117 +1,107 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from '../../assets/Firebase/Firebase';
+import { db } from "../../assets/Firebase/Firebase";
 
-export const GETallProducts = createAsyncThunk('GETallProducts', async () => {
-
+export const GETallProducts = createAsyncThunk("GETallProducts", async (args) => {
     try {
+        const mainProducts = [],
+            alternative = [],
+            productsNames = [];
 
-        const prdArr = [], prdAlternative = [], productsKeys = [];
+        const gender = args.gender;
+        const category = args.category.replace("تيشيرت", "تي شيرت");
 
-        const getDocument = async (gender, category) => {
+        const categoryField = category == "الأهلى" ? "arcategory" : "category";
+        const genderField = "gender";
 
+     
+        const filterProducts = (products) => {
+            products.docs.forEach((doc) => {
+                const prd = { ...doc.data(), id: doc.id };
 
-            if (gender) {
-                var productDB = await getDocs(
-                    query(
-                        collection(db, 'products'),
-                        where('gender', '==', gender),
-                        where('category', '==', category),
-                    )
-                );
-            } else {
-
-                var productDB = await getDocs(
-                    query(
-                        collection(db, 'products'),
-                        where('arcategory', '==', category),
-                    )
-                );
-            }
-
-            console.log('response ', category);
-
-            productDB.docs.forEach(doc => {
-                const prd = { ...doc.data(), id: doc.id, };
-                const prdKey = prd.name + prd.gender + prd.category;
-                if (!productsKeys.includes(prdKey)) {
-                    productsKeys.push(prdKey);
-                    prdArr.push(prd);
+                if (!productsNames.includes(prd.name)) {
+                    productsNames.push(prd.name);
+                    mainProducts.push(prd);
                 } else {
-                    prdAlternative.push(prd);
+                    alternative.push(prd);
                 }
-            }
-
-            )
-
+            });
+        };
 
 
+
+
+        if (gender && category) {
+
+            var productDB = await getDocs(
+                query(
+                    collection(db, "products"),
+                    where(genderField, "==", gender),
+                    where(categoryField, "==", category)
+                )
+            );
         }
-        await getDocument(false, 'الأهلى');
-        await getDocument('الأطفال', 'أحذية');
-        await getDocument('الأطفال', 'ملابس');
-        await getDocument('النساء', 'جاكيت');
-        await getDocument('النساء', 'تي شيرت');
-        await getDocument('النساء', 'أحذية');
-        await getDocument('النساء', 'بنطال');
-        await getDocument('الرجال', 'شورت');
-        await getDocument('الرجال', 'تي شيرت');
-        await getDocument('الرجال', 'هودي');
-        await getDocument('الرجال', 'أحذية');
+
+        else if (gender && !category) {
+            var productDB = await getDocs(
+                query(collection(db, "products"), where(genderField, "==", gender))
+            );
+        }
+
+        else if (!gender && category) {
+            var productDB = await getDocs(
+                query(
+                    collection(db, "products"),
+                    where(categoryField, "==", category)
+                )
+            );
+        }
+
+        console.log("response ", category);
+
+        filterProducts(productDB);
+
+        console.log('category', category, 'gender', gender, 'main products', mainProducts);
 
 
 
 
-
-        return { filterProducts: prdArr, alternative: prdAlternative };
+        return {
+            mainProducts: mainProducts,
+            alternative: alternative,
+        };
 
 
 
     } catch (err) {
-        console.error('err', err);
+        console.error("err", err);
     }
-
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
+}
+);
 
 const allProducts = createSlice({
-    name: 'allProducts',
-    initialState: { allProducts: [], alternative: [], isLoading: false, },
+    name: "allProducts",
+    initialState: { allProducts: [], alternative: [], isLoading: false },
     extraReducers: (builder) => {
         builder
             .addCase(GETallProducts.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(GETallProducts.fulfilled, (state, action) => {
-                state.allProducts = action.payload['filterProducts'];
-                state.alternative = action.payload['alternative'];
+                state.allProducts = [
+                    ...state.allProducts,
+                    ...action.payload["mainProducts"],
+                ];
+                state.alternative = [
+                    ...state.alternative,
+                    ...action.payload["alternative"],
+                ];
                 state.isLoading = false;
-                console.log('firebase request', 'getallprd')
-
             })
             .addCase(GETallProducts.rejected, (state) => {
                 state.isLoading = false;
             });
+    },
+});
 
-
-
-    }
-
-
-})
-
-
-
-export default allProducts.reducer
+export default allProducts.reducer;

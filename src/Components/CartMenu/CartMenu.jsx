@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import CartItem from "../CartItem/CartItem";
 import "./CartMenu.css";
-
+import { db } from "../../assets/Firebase/Firebase";
+import { doc, getDoc } from "firebase/firestore";
 export default function CartMenu({
   prd,
   setCartMenuActive,
@@ -14,7 +15,7 @@ export default function CartMenu({
   const cart = useSelector((state) => state.cart.cart) || [];
   const allProducts = useSelector((state) => state.allProducts.allProducts);
   const alternative = useSelector((state) => state.allProducts.alternative);
- 
+
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartPrd, setCartPrd] = useState([]);
   const currency = new Intl.NumberFormat("en-US", {
@@ -23,33 +24,45 @@ export default function CartMenu({
   });
 
   const navigate = useNavigate();
-  const findPrdById = (item) => {
-    const _prd = [...allProducts, ...alternative].find(
-      (prd) => prd.id == item.id
-    );
-    return { ..._prd, size: item.size, qty: item.qty };
+
+  const findPrdById = async (item) => {
+    let prd =
+      allProducts.find((prd) => prd.id == item.id) ||
+      alternative.find((prd) => prd.id == item.id);
+
+    if (!prd) {
+      const docRef = doc(db, "products", item.id);
+      const snapshot = await getDoc(docRef);
+
+      prd = { ...snapshot.data() };
+    }
+
+    prd = { ...prd, id: item.id, size: item.size, qty: item.qty };
+
+    return prd;
   };
 
   useEffect(() => {
+    const getProducts = async () => {
+      const promises = cart.map(async (item) => await findPrdById(item));
+      const products = await Promise.all(promises);
+      const totalPrice = products.reduce(
+        (res, prd) => res + prd.price * prd.qty,
+        0
+      );
+      setTotalPrice(totalPrice);
+      setCartPrd(products);
+    };
+
     if (cart.length) {
-      let newArr = [];
-      let total = 0;
-
-      cart.forEach((item) => {
-        const _prd = findPrdById(item);
-        if (_prd) {
-          total += _prd.price * item.qty;
-          newArr.push(_prd);
-        }
-      });
-
-      setCartPrd(newArr);
-      setTotalPrice(total);
+      setTotalPrice(0);
+      getProducts();
     } else {
       setCartPrd([]);
       setTotalPrice(0);
     }
   }, [cart, cartMenuActive]);
+
 
   return (
     <div className="shadow-container">
@@ -57,7 +70,6 @@ export default function CartMenu({
         <div className="close-btn" onClick={() => setCartMenuActive(false)}>
           <i className="fa-solid fa-xmark fs-4" />
         </div>
-
 
         <div className="cart-header">
           <span className="h5 fw-bolder ms-2">
@@ -108,9 +120,6 @@ export default function CartMenu({
             </button>
           </div>
         </div>
-
-
-
       </div>
     </div>
   );

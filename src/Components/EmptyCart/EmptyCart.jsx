@@ -17,7 +17,7 @@ export const EmptyCart = () => {
         <p>حالما تُضيف شيء إلى عربتك، سيظهر هنا. هل أنت مستعد لتبدأ؟</p>
 
         <div className="   m-5" onClick={() => {
-          Navigate("/Home");
+          Navigate("/");
         }}>
           <button
             type="submit"

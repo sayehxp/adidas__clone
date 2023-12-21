@@ -1,15 +1,16 @@
+import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { CartViewItem } from "../../Components/CartViewItem/CartViewItem";
-import { GETallProducts } from "../../Store/Slices/allProducts";
 import {
   addToCart,
   getFromCart,
   removeFromCart,
 } from "../../Store/Slices/cartSlice";
+import { db } from "../../assets/Firebase/Firebase";
 import { EmptyCart } from "../../components/EmptyCart/EmptyCart";
 import "./Cart.css";
 export default function Cart() {
@@ -47,12 +48,6 @@ export default function Cart() {
     );
   };
 
-  //get all prd
-  useEffect(() => {
-    if (allProducts.length) return;
-    dispatch(GETallProducts());
-  }, []);
-
   //get cart data
   useEffect(() => {
     if (cart.length == 0) {
@@ -60,26 +55,44 @@ export default function Cart() {
     }
   }, [cart]);
 
-  useEffect(() => {
-    if (cart.length) {
-      const newArr = [];
-      let total = 0;
-      cart.map((item) => {
-        var _prd =
-          allProducts.find((prd) => prd.id == item.id) ||
-          alternative.find((prd) => prd.id == item.id);
-        if (!_prd) return; //not exist storeDB
-        total += _prd.price * item.qty;
+  const findPrdById = async (item) => {
+    let prd =
+      allProducts.find((prd) => prd.id == item.id) ||
+      alternative.find((prd) => prd.id == item.id);
 
-        newArr.push({
-          ..._prd,
-          size: item.size,
-          qty: item.qty,
-        });
-      });
-      setCartPrd(newArr);
-      setTotalPrice(total);
+    if (!prd) {
+      const docRef = doc(db, "products", item.id);
+      const snapshot = await getDoc(docRef);
+
+      prd = { ...snapshot.data() };
     }
+
+    prd = { ...prd, id: item.id, size: item.size, qty: item.qty };
+
+    return prd;
+  };
+
+
+
+  useEffect(() => {
+
+    const getProducts = async () => {
+      const promises = cart.map(async (item) => await findPrdById(item));
+      const products = await Promise.all(promises);
+      const totalPrice = products.reduce(
+        (res, prd) => res + prd.price * prd.qty,
+        0
+      );
+      setTotalPrice(totalPrice);
+      setCartPrd(products);
+    };
+
+    if (cart.length) {
+      setTotalPrice(0);
+      getProducts();
+    }
+
+    
   }, [cart]);
 
   return (
@@ -183,14 +196,15 @@ export default function Cart() {
             </div>
 
             <div className="orders-detaiels col-12 col-md-8 mt-4 my-5 justify-content-end ">
-              {cartPrd.map((prd) => (
-                <CartViewItem
-                  handleUpdateQty={handleUpdateQty}
-                  handleRemoveItem={handleRemoveItem}
-                  prd={prd}
-                  key={uuidv4()}
-                />
-              ))}
+              {cartPrd.length > 0 &&
+                cartPrd.map((prd) => (
+                  <CartViewItem
+                    handleUpdateQty={handleUpdateQty}
+                    handleRemoveItem={handleRemoveItem}
+                    prd={prd}
+                    key={uuidv4()}
+                  />
+                ))}
             </div>
           </div>
         </>
